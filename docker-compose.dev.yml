@@ -1,7 +1,7 @@
 # https://github.com/bitnami/bitnami-docker-kafka/blob/master/README.md#kafka-development-setup-example - simple development docker compose
 # https://github.com/bitnami/bitnami-docker-kafka/blob/master/README.md#accessing-kafka-with-internal-and-external-clients - in order to connect kafdrop inside internal network
 
-# Simple setup
+# Simple setup (single broker)
 
 version: "3"
 
