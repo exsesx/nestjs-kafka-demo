@@ -5,7 +5,7 @@
 ### Kafka, its dependencies and Kafdrop (Kafka UI)
 
 ```bash
-$ docker-compose -f docker-compose.dev.yml up # to start
+$ docker-compose up # to start
 
 $ docker-compose down # to stop
 

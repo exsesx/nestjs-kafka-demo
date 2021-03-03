@@ -1,64 +1,52 @@
-# 2 brokers setup
+# https://github.com/bitnami/bitnami-docker-kafka/blob/master/README.md#kafka-development-setup-example - simple development docker compose
+# https://github.com/bitnami/bitnami-docker-kafka/blob/master/README.md#accessing-kafka-with-internal-and-external-clients - in order to connect kafdrop inside internal network
+
+# Simple setup (single broker)
 
 version: "3"
 
 networks:
-  kafka-net:
+  kafka-dev-net:
     driver: bridge
 
 services:
-  zookeeper-server:
-    image: "bitnami/zookeeper:latest"
+  zookeeper:
     container_name: zookeeper
-    networks:
-      - kafka-net
+    image: "bitnami/zookeeper:latest"
     ports:
       - "2181:2181"
+    networks:
+      - kafka-dev-net
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
-  kafka-server1:
-    container_name: kafka_1
+
+  kafka:
+    container_name: kafka
     image: "bitnami/kafka:latest"
-    networks:
-      - kafka-net
     ports:
       - "9093:9093"
+    networks:
+      - kafka-dev-net
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka-server1:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
-      - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
-      - zookeeper-server
-  kafka-server2:
-    container_name: kafka_2
-    image: "bitnami/kafka:latest"
-    networks:
-      - kafka-net
-    ports:
-      - "9094:9094"
-    environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
-      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9094
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka-server1:9092,EXTERNAL://localhost:9094
-      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper-server
+      - zookeeper
 
   kafdrop:
     container_name: kafdrop
     image: obsidiandynamics/kafdrop
     restart: "no"
-    networks:
-      - kafka-net
     ports:
       - "9000:9000"
+    networks:
+      - kafka-dev-net
     environment:
-      KAFKA_BROKERCONNECT: "kafka-server1:9092"
+      KAFKA_BROKERCONNECT: "kafka:9092"
     depends_on:
-      - kafka-server1
-      - kafka-server2
+      - kafka
