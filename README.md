@@ -2,25 +2,29 @@
 
 ## Setup
 
-```bash
-# Start docker-compose with Zookeeper, Kafka and Kafdrop (Kafka Web UI)
+### Kafka, its dependencies and Kafdrop (Kafka UI)
 
+```bash
 $ docker-compose -f docker-compose.dev.yml up # to start
 
 $ docker-compose down # to stop
 
 $ docker-compose down -v --rmi all # full cleanup
+```
 
-# Start producer service:
+### Nest.js Producer Service
 
+```bash
 $ cd kafka-microservice-client-producer
 
 $ yarn install # install dependencies
 
 $ yarn start:dev
+```
 
-# Start consumer service:
+### Nest.js Consumer Service
 
+```bash
 $ cd kafka-microservice-server-consumer
 
 $ yarn install # install dependencies
