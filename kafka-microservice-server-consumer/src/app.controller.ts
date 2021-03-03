@@ -1,18 +1,54 @@
 import { Controller, Logger } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import {
+  Ctx,
+  KafkaContext,
+  MessagePattern,
+  Payload,
+} from '@nestjs/microservices';
 import * as util from 'util';
+import { KafkaMessage } from 'kafkajs';
+
+interface Dragon {
+  id: number;
+  name: string;
+}
+
+type KillDragonMessage = Omit<KafkaMessage, 'value'> & {
+  value: Pick<Dragon, 'id'>;
+};
 
 // Simplified example: move method implementations to the service ofc
 @Controller()
 export class AppController {
   private readonly logger = new Logger(AppController.name);
 
-  @MessagePattern('hero.kill.dragon')
-  onKillDragon(@Payload() message) {
-    this.logger.log('HERO KILLED THE DRAGON!');
-    this.logger.log(`Message = ${util.inspect(message)}`);
-    this.logger.log('Spawning another one...');
+  private readonly dragons = [
+    { id: 1, name: 'Smaug' },
+    { id: 2, name: 'Ancalagon The Black' },
+    { id: 3, name: 'Glaurung' },
+  ];
 
-    return 'Spawned another one!';
+  @MessagePattern('hero.kill.dragon')
+  onKillDragon(
+    @Payload() message: KillDragonMessage,
+    @Ctx() context: KafkaContext,
+  ) {
+    this.logger.log(`[hero.kill.dragon] message = ${util.inspect(message)}`);
+
+    const dragonId = message?.value?.id ?? null;
+    if (!dragonId) {
+      this.logger.error('Failed to determine Dragon ID');
+      return;
+    }
+
+    const dragon = this.dragons.find(({ id }) => id === dragonId);
+    if (!dragon) {
+      this.logger.error('Failed to fetch dragon from the database!');
+      return;
+    }
+
+    this.logger.log(`Hero killed ${dragon.name}!`);
+
+    return dragon;
   }
 }
