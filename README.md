@@ -38,7 +38,7 @@ Check that everything is working correctly by looking at the logs.
 
 To send a new message and consume it, go to: http://localhost:3000/hero
 
-You'll see "Saved the Kingdom!" text message.
+You'll see a success text message.
 
 The purpose of this repository is to show the demo interaction within a distributed system.
 
