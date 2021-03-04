@@ -1,7 +1,7 @@
 # Nest.js Kafka Demo
 
 <div style="text-align: center" align="center">
-    <img alt="Kafka.js" src="docs/kafkajs.svg" height="64" />
+    <img alt="Kafka.js" src="docs/kafkajs.svg" style="margin-right: 12px" height="64" />
     <img alt="Nest.js" src="docs/nestjs.svg" height="64" />
 </div>
 
