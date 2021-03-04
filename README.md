@@ -1,6 +1,6 @@
 # Nest.js Kafka Demo
 
-<div style="display: flex; justify-content: space-around; text-align: center">
+<div style="text-align: center" align="center">
     <img alt="Kafka.js" src="docs/kafkajs.svg" height="64" />
     <img alt="Nest.js" src="docs/nestjs.svg" height="64" />
 </div>
