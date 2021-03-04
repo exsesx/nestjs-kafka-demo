@@ -1,5 +1,10 @@
 # Nest.js Kafka Demo
 
+<p style="text-align: center">
+    <img alt="Kafka.js" src="docs/kafkajs.svg" height="64" />
+    <img alt="Nest.js" src="docs/nestjs.svg" height="64" />
+</p>
+
 ## Setup
 
 ### Kafka, its dependencies and Kafdrop (Kafka UI)
