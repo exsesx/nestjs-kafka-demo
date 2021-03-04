@@ -1,6 +1,8 @@
 # Nest.js Kafka Demo
 
-![Logo](docs/logo.svg)
+<p align="center">
+  <img alt="Logo" src="/docs/logo.png" />
+</p>
 
 ## Setup
 
