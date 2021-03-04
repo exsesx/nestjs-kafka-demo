@@ -1,9 +1,6 @@
 # Nest.js Kafka Demo
 
-<div style="text-align: center" align="center">
-    <img alt="Kafka.js" src="docs/kafkajs.svg" height="64" />
-    <img alt="Nest.js" src="docs/nestjs.svg" height="64" />
-</div>
+![Logo](docs/logo.svg)
 
 ## Setup
 
@@ -50,3 +47,9 @@ The purpose of this repository is to show the demo interaction within a distribu
 ## Worth Mentioning
 
 Kafdrop (Kafka Web UI) will be available at http://localhost:9000 after the Kafka launch (docker compose).
+
+## Credits
+
+- [Apache Kafka](https://kafka.apache.org/)
+- [KafkaJS](https://kafka.js.org/)
+- [Nest.js](https://nestjs.com/)
