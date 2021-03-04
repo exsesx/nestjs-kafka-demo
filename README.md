@@ -2,7 +2,7 @@
 
 <div style="text-align: center" align="center">
     <img alt="Kafka.js" src="docs/kafkajs.svg" height="64" />
-    <div width="12" height="1"></div>
+    <img width="64" />
     <img alt="Nest.js" src="docs/nestjs.svg" height="64" />
 </div>
 
