@@ -1,10 +1,5 @@
 import { Controller, Logger } from '@nestjs/common';
-import {
-  Ctx,
-  KafkaContext,
-  MessagePattern,
-  Payload,
-} from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import * as util from 'util';
 import { KafkaMessage } from 'kafkajs';
 
@@ -29,10 +24,7 @@ export class AppController {
   ];
 
   @MessagePattern('hero.kill.dragon')
-  onKillDragon(
-    @Payload() message: KillDragonMessage,
-    @Ctx() context: KafkaContext,
-  ) {
+  onKillDragon(@Payload() message: KillDragonMessage) {
     this.logger.log(`[hero.kill.dragon] message = ${util.inspect(message)}`);
 
     const dragonId = message?.value?.id ?? null;
